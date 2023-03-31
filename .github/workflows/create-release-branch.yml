@@ -20,14 +20,14 @@ jobs:
         run: |
           git checkout -b release/release-`${{ inputs.release_version }}`
           
-      - name: Update Version and Name
+      - name: Update VersionName
         run: |
           sed -i "s/versionName .*/versionName `${{ inputs.release_version }}`/" app/build.gradle
         shell: bash
 
-      - name: Create Release Branch
+      - name: Commit changes and push branch
         run: |
 	  git add -A
-	  git commit -m "Updatinf version name"
+	  git commit -m "Updating version name"
 	  git push origin release/release-`${{ inputs.release_version }}`
 
