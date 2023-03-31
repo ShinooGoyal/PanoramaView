@@ -25,11 +25,17 @@ jobs:
           git push --set-upstream origin release/release-${{inputs.release_version}}
 
       - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v3
+        uses: actions/github-script@v4
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          commit-message: 'Automatically created PR'
-          title: 'Automatic Pull Request'
-          body: 'This PR was automatically created by a GitHub action'
-          branch: 'release-${{inputs.release_version}}'
-          base: 'main'
+	  github-token: ${{ secrets.TOKEN }}
+          script: |
+            const title = 'Release Pull Request';
+            const branch = 'release/release-${{inputs.release_version}}';
+            const { data } = await github.pulls.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: title,
+              head: branch,
+              base: 'main'
+            });
+            console.log(`Created Pull Request: ${data.html_url}`);
