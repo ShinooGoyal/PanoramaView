@@ -1,0 +1,19 @@
+name: Create Release Branch
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+      
+      - name: Create Release Branch
+        run: |
+          git checkout -b release-v1.0.0
+          git add app/build.gradle
+          git commit -m "Updating version name"
+          git push origin release-v1.0.0
