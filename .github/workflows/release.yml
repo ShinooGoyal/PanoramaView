@@ -22,4 +22,4 @@ jobs:
           git config --local user.name "GitHub Action"
           sed -i "s/versionName .*/versionName ${{inputs.release_verions}}/" app/build.gradle
           git commit -m "Automated commit by GitHub Actions to update version name" -a
-          git push
+          git push --set-upstream origin release/release-${{inputs.release_version}}
