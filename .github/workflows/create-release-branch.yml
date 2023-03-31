@@ -5,11 +5,6 @@ on:
     branches:
       - main
 
-inputs:
-  release_version_no:
-    description: ‘Version no of release
-    required: true
-
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -26,11 +21,11 @@ jobs:
     - name: Create release branch
       uses: actions/run-command@v1
       with:
-        command: git checkout -b release/release-${{ inputs. release_version_no }} main
+        command: git checkout -b release/release-1 main
 
     - name: Push release branch
       uses: actions/upload-artifact@v2
       with:
         name: Release Branch
-        path: release/release-${{ inputs. release_version_no }}
+        path: release/release-1
 
