@@ -3,6 +3,11 @@ name: Create Release Branch
 on:
   workflow_dispatch:
 
+inputs:
+  release_version:
+    description: 'version no of release'
+    required: true
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -13,6 +18,16 @@ jobs:
       
       - name: Create Release Branch
         run: |
-          git checkout -b release-v1.0.0
-          git push origin release-v1.0.0
+          git checkout -b release/release-`${{ inputs.release_version }}`
+          
+      - name: Update Version and Name
+        run: |
+          sed -i "s/versionName .*/versionName `${{ inputs.release_version }}`/" app/build.gradle
+        shell: bash
+
+      - name: Create Release Branch
+        run: |
+	  git add -A
+	  git commit -m "Updatinf version name"
+	  git push origin release/release-`${{ inputs.release_version }}`
 
