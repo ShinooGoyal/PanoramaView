@@ -27,7 +27,7 @@ jobs:
       - name: Create Pull Request
         uses: actions/github-script@v4
         with:
-	  github-token: ${{ secrets.TOKEN }}
+	  github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             const title = 'Release Pull Request';
             const branch = 'release/release-${{inputs.release_version}}';
