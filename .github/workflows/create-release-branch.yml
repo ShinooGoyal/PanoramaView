@@ -13,19 +13,7 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
-    - name: Set up Java
-      uses: actions/setup-java@v2
-      with:
-        java-version: '11'
-
     - name: Create release branch
-      uses: actions/run-command@v1
-      with:
-        command: git checkout -b release/release-1 main
-
-    - name: Push release branch
-      uses: actions/upload-artifact@v2
-      with:
-        name: Release Branch
-        path: release/release-1
-
+      run: |
+        git checkout -b release-1
+	git push
