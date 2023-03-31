@@ -23,11 +23,7 @@ jobs:
       - name: Update VersionName
         run: |
           sed -i "s/versionName .*/versionName `${{ inputs.release_version }}`/" app/build.gradle
-        shell: bash
-
-      - name: Commit changes and push branch
-        run: |
-	  git add -A
+	  git add app/build.gradle
 	  git commit -m "Updating version name"
 	  git push origin release/release-`${{ inputs.release_version }}`
 
