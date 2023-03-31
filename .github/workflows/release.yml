@@ -20,6 +20,16 @@ jobs:
           git checkout -b release/release-${{inputs.release_version}}
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          sed -ie 's/versionName .*/versionName {{inputs.release_version}}/' app/build.gradle         
+          sed -ie 's/versionName .*/versionName ${{inputs.release_version}}/' app/build.gradle         
           git commit -m "Automated commit by GitHub Actions to update version name" -a
           git push --set-upstream origin release/release-${{inputs.release_version}}
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: 'Automatically created PR'
+          title: 'Automatic Pull Request'
+          body: 'This PR was automatically created by a GitHub action'
+          branch: 'release-${{inputs.release_version}}'
+          base: 'main'
