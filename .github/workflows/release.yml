@@ -17,9 +17,9 @@ jobs:
       
       - name: Create Release Branch
         run: |
-          git checkout -b release/release-`${{inputs.release_version}}`
+          git checkout -b release/release-${{inputs.release_version}}
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          sed -i "s/versionName .*/versionName `${{inputs.release_verions}}`/" app/build.gradle
+          sed -i "s/versionName .*/versionName ${{inputs.release_verions}}/" app/build.gradle
           git commit -m "Automated commit by GitHub Actions to update version name" -a
           git push
