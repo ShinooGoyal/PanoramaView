@@ -25,6 +25,8 @@ jobs:
           git push --set-upstream origin release/release-${{inputs.release_version}}
 
       - name: Create Pull Request
-        run: gh pr create -B release/release-${{inputs.release_version}} -H main --title 'Merge release branch into main' --body 'Created by Github action'
+        run: |
+          gh auth login --with-token ${{ secrets.TOKEN_FOR_PR }}
+          gh pr create -B release/release-${{inputs.release_version}} -H main --title 'Merge release branch into main' --body 'Created by Github action'
         env:
           GITHUB_TOKEN: ${{ secrets.TOKEN_FOR_PR }}
