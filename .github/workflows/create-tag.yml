@@ -1,0 +1,17 @@
+name: Create Tag
+on:
+  push:
+    branches:
+      - main # Change this to the name of the branch you want to create a tag from
+jobs:
+  create-tag:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v2
+    - name: Create Tag
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git tag ${{ github.ref }} -a -m "Tag created by GitHub Action"
+        git push --follow-tags
