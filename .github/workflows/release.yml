@@ -30,5 +30,5 @@ jobs:
         run: |
           env
           gh auth login --with-token || echo 0
-          gh pr create -B release/release-${{inputs.release_version}} -H main --title 'Merge release branch into main' --body 'Created by Github action'
+          gh pr create -H release/release-${{inputs.release_version}} -B main --title 'Merge release branch into main' --body 'Created by Github action'
        
