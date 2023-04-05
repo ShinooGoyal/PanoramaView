@@ -27,5 +27,7 @@ jobs:
       - name: Create Pull Request
         env:
           GITHUB_TOKEN: ${{ secrets.TOKEN_FOR_PR }}
-        run: gh pr create -B release/release-${{inputs.release_version}} -H main --title 'Merge release branch into main' --body 'Created by Github action'
+        run: |
+          gh auth login --with-token
+          gh pr create -B release/release-${{inputs.release_version}} -H main --title 'Merge release branch into main' --body 'Created by Github action'
        
